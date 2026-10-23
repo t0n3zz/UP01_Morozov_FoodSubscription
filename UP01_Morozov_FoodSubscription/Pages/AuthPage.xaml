@@ -1,0 +1,112 @@
+<Page x:Class="UP01_Morozov_FoodSubscription.Pages.AuthPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      Title="Авторизация"
+      Background="{DynamicResource BackgroundBrush}">
+
+    <Grid>
+        <Border Style="{DynamicResource Card}"
+                Width="460"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Row="0"
+                           Style="{DynamicResource TitleText}"
+                           Text="Вход в сервис подписки" />
+
+                <TextBlock Grid.Row="1"
+                           Style="{DynamicResource SubtitleText}"
+                           HorizontalAlignment="Center"
+                           Text="Онлайн-сервис подписки на продукты питания" />
+
+                <Grid Grid.Row="2">
+                    <TextBox x:Name="TbLogin"
+                             MaxLength="50"
+                             ToolTip="Логин: от 3 до 50 символов, латиница, цифры и знак подчёркивания"
+                             TextChanged="TbLogin_TextChanged" />
+                    <TextBlock x:Name="PhLogin"
+                               Style="{DynamicResource PlaceholderText}"
+                               Text="Введите логин"
+                               MouseLeftButtonUp="PhLogin_MouseLeftButtonUp" />
+                </Grid>
+
+                <Grid Grid.Row="3">
+                    <PasswordBox x:Name="PbPassword"
+                                 MaxLength="30"
+                                 ToolTip="Пароль, указанный при регистрации"
+                                 PasswordChanged="PbPassword_PasswordChanged"
+                                 KeyDown="PbPassword_KeyDown" />
+                    <TextBlock x:Name="PhPassword"
+                               Style="{DynamicResource PlaceholderText}"
+                               Text="Введите пароль"
+                               MouseLeftButtonUp="PhPassword_MouseLeftButtonUp" />
+                </Grid>
+
+                <StackPanel x:Name="SpCaptcha" Grid.Row="4" Visibility="Collapsed">
+                    <TextBlock Style="{DynamicResource SubtitleText}"
+                               Text="Подтвердите, что вы не робот" />
+
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <Border BorderBrush="{DynamicResource BorderBrush}"
+                                BorderThickness="1"
+                                CornerRadius="6"
+                                Margin="8"
+                                Padding="2">
+                            <Image x:Name="ImgCaptcha"
+                                   Width="220" Height="60"
+                                   ToolTip="Введите символы, изображённые на картинке" />
+                        </Border>
+                        <Button x:Name="BtnRefreshCaptcha"
+                                Content="Обновить"
+                                MinWidth="110"
+                                Style="{DynamicResource SecondaryButton}"
+                                ToolTip="Сгенерировать новую картинку"
+                                Click="BtnRefreshCaptcha_Click" />
+                    </StackPanel>
+
+                    <Grid>
+                        <TextBox x:Name="TbCaptcha"
+                                 MaxLength="5"
+                                 CharacterCasing="Upper"
+                                 ToolTip="Введите 5 символов с картинки"
+                                 TextChanged="TbCaptcha_TextChanged" />
+                        <TextBlock x:Name="PhCaptcha"
+                                   Style="{DynamicResource PlaceholderText}"
+                                   Text="Символы с картинки"
+                                   MouseLeftButtonUp="PhCaptcha_MouseLeftButtonUp" />
+                    </Grid>
+                </StackPanel>
+
+                <StackPanel Grid.Row="5" Orientation="Horizontal" HorizontalAlignment="Center">
+                    <Button x:Name="BtnAuth"
+                            Content="Войти"
+                            ToolTip="Войти в систему"
+                            Click="BtnAuth_Click" />
+                    <Button x:Name="BtnReg"
+                            Content="Регистрация"
+                            Style="{DynamicResource SecondaryButton}"
+                            ToolTip="Создать новую учётную запись"
+                            Click="BtnReg_Click" />
+                </StackPanel>
+
+                <Button x:Name="BtnChangePassword"
+                        Grid.Row="6"
+                        Content="Сменить пароль"
+                        HorizontalAlignment="Center"
+                        Style="{DynamicResource SecondaryButton}"
+                        ToolTip="Перейти к смене пароля"
+                        Click="BtnChangePassword_Click" />
+            </Grid>
+        </Border>
+    </Grid>
+</Page>

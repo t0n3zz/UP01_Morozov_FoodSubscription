@@ -1,0 +1,121 @@
+<Page x:Class="UP01_Morozov_FoodSubscription.Pages.UserPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:helpers="clr-namespace:UP01_Morozov_FoodSubscription.Helpers"
+      Title="Мои подписки"
+      Background="{DynamicResource BackgroundBrush}">
+
+    <Page.Resources>
+        <helpers:PhotoConverter x:Key="PhotoConverter" />
+    </Page.Resources>
+
+    <Grid Margin="8">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Border Grid.Row="0" Style="{DynamicResource Card}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <Border Grid.Column="0"
+                        Width="72" Height="72"
+                        CornerRadius="36"
+                        BorderBrush="{DynamicResource PrimaryBrush}"
+                        BorderThickness="2"
+                        ClipToBounds="True">
+                    <Image x:Name="ImgPhoto" Stretch="UniformToFill"
+                           ToolTip="Фотография пользователя" />
+                </Border>
+
+                <StackPanel Grid.Column="1" Margin="16,0" VerticalAlignment="Center">
+                    <TextBlock x:Name="TbFio" Style="{DynamicResource SubtitleText}" />
+                    <TextBlock x:Name="TbRole" Foreground="{DynamicResource MutedTextBrush}" />
+                    <TextBlock x:Name="TbTotal" FontWeight="SemiBold" />
+                </StackPanel>
+
+                <StackPanel Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center">
+                    <Button Content="Сменить пароль"
+                            Style="{DynamicResource SecondaryButton}"
+                            ToolTip="Изменить пароль учётной записи"
+                            Click="BtnChangePassword_Click" />
+                    <Button Content="Выйти"
+                            Style="{DynamicResource DangerButton}"
+                            MinWidth="110"
+                            ToolTip="Завершить сеанс и вернуться к авторизации"
+                            Click="BtnLogout_Click" />
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <Border Grid.Row="1" Style="{DynamicResource Card}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <Grid Grid.Column="0">
+                    <TextBox x:Name="TbSearch"
+                             ToolTip="Поиск по названию продуктового набора"
+                             TextChanged="TbSearch_TextChanged" />
+                    <TextBlock x:Name="PhSearch"
+                               Style="{DynamicResource PlaceholderText}"
+                               Text="Поиск по названию набора"
+                               MouseLeftButtonUp="PhSearch_MouseLeftButtonUp" />
+                </Grid>
+
+                <ComboBox x:Name="CmbCategory"
+                          Grid.Column="1"
+                          DisplayMemberPath="Name"
+                          ToolTip="Фильтр по категории продуктового набора"
+                          SelectionChanged="Filter_SelectionChanged" />
+
+                <ComboBox x:Name="CmbSort"
+                          Grid.Column="2"
+                          SelectedIndex="0"
+                          ToolTip="Сортировка списка подписок"
+                          SelectionChanged="Filter_SelectionChanged">
+                    <ComboBoxItem Content="Сначала новые" />
+                    <ComboBoxItem Content="Сначала старые" />
+                    <ComboBoxItem Content="Сумма по убыванию" />
+                    <ComboBoxItem Content="Сумма по возрастанию" />
+                    <ComboBoxItem Content="Название (А-Я)" />
+                </ComboBox>
+
+                <Button Grid.Column="3"
+                        Content="Сбросить фильтры"
+                        MinWidth="170"
+                        Style="{DynamicResource SecondaryButton}"
+                        ToolTip="Очистить поиск, фильтр и сортировку"
+                        Click="BtnClear_Click" />
+            </Grid>
+        </Border>
+
+        <DataGrid x:Name="DgSubscriptions" Grid.Row="2">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="№"          Binding="{Binding ID}" Width="60" />
+                <DataGridTextColumn Header="Дата"       Binding="{Binding Date, StringFormat=dd.MM.yyyy}" Width="110" />
+                <DataGridTextColumn Header="Категория"  Binding="{Binding Category.Name}" Width="180" />
+                <DataGridTextColumn Header="Продуктовый набор" Binding="{Binding Name}" Width="*" />
+                <DataGridTextColumn Header="Кол-во"     Binding="{Binding Num}" Width="90" />
+                <DataGridTextColumn Header="Цена, руб." Binding="{Binding Price, StringFormat=N2}" Width="120" />
+                <DataGridTextColumn Header="Итого, руб." Binding="{Binding Total, StringFormat=N2}" Width="130" />
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <TextBlock x:Name="TbCount"
+                   Grid.Row="3"
+                   Margin="12,4"
+                   Foreground="{DynamicResource MutedTextBrush}" />
+    </Grid>
+</Page>

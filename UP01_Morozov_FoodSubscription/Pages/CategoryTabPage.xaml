@@ -1,0 +1,70 @@
+<Page x:Class="UP01_Morozov_FoodSubscription.Pages.CategoryTabPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      Title="Таблица «Категории»"
+      Background="{DynamicResource BackgroundBrush}"
+      IsVisibleChanged="Page_IsVisibleChanged">
+
+    <Grid Margin="8">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Border Grid.Row="0" Style="{DynamicResource Card}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <Grid Grid.Column="0">
+                    <TextBox x:Name="TbSearch"
+                             ToolTip="Поиск по названию категории"
+                             TextChanged="TbSearch_TextChanged" />
+                    <TextBlock x:Name="PhSearch"
+                               Style="{DynamicResource PlaceholderText}"
+                               Text="Поиск по названию категории"
+                               MouseLeftButtonUp="PhSearch_MouseLeftButtonUp" />
+                </Grid>
+
+                <ComboBox x:Name="CmbSort" Grid.Column="1" SelectedIndex="0"
+                          ToolTip="Сортировка списка категорий"
+                          SelectionChanged="Filter_SelectionChanged">
+                    <ComboBoxItem Content="Название (А-Я)" />
+                    <ComboBoxItem Content="Название (Я-А)" />
+                    <ComboBoxItem Content="Больше всего подписок" />
+                </ComboBox>
+
+                <Button Grid.Column="2" Content="Сбросить фильтры"
+                        MinWidth="170"
+                        Style="{DynamicResource SecondaryButton}"
+                        ToolTip="Очистить поиск и сортировку"
+                        Click="BtnClear_Click" />
+            </Grid>
+        </Border>
+
+        <DataGrid x:Name="DgCategories" Grid.Row="1">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="№"          Binding="{Binding ID}" Width="60" />
+                <DataGridTextColumn Header="Категория"  Binding="{Binding Name}" Width="*" />
+                <DataGridTextColumn Header="Подписок"   Binding="{Binding Subscription.Count}" Width="140" />
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center">
+            <Button Content="Добавить" ToolTip="Добавить новую категорию" Click="BtnAdd_Click" />
+            <Button Content="Редактировать" ToolTip="Изменить выбранную категорию" Click="BtnEdit_Click" />
+            <Button Content="Удалить" Style="{DynamicResource DangerButton}"
+                    ToolTip="Удалить категорию вместе со связанными подписками" Click="BtnDelete_Click" />
+            <Button Content="Назад" Style="{DynamicResource SecondaryButton}"
+                    ToolTip="Вернуться в панель администратора" Click="BtnBack_Click" />
+        </StackPanel>
+
+        <TextBlock x:Name="TbCount" Grid.Row="3" Margin="12,4"
+                   Foreground="{DynamicResource MutedTextBrush}" />
+    </Grid>
+</Page>

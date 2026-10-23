@@ -1,0 +1,57 @@
+<Page x:Class="UP01_Morozov_FoodSubscription.Pages.DiagrammPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:wfi="clr-namespace:System.Windows.Forms.Integration;assembly=WindowsFormsIntegration"
+      xmlns:chart="clr-namespace:System.Windows.Forms.DataVisualization.Charting;assembly=System.Windows.Forms.DataVisualization"
+      Title="Диаграммы и отчёты"
+      Background="{DynamicResource BackgroundBrush}">
+
+    <Grid Margin="8">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Border Grid.Row="0" Style="{DynamicResource Card}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <Label Grid.Column="0" Content="Пользователь:" />
+                <ComboBox x:Name="CmbUser" Grid.Column="1"
+                          DisplayMemberPath="FIO"
+                          ToolTip="Пользователь, расходы которого выводятся на диаграмме"
+                          SelectionChanged="UpdateChart" />
+
+                <Label Grid.Column="2" Content="Тип диаграммы:" />
+                <ComboBox x:Name="CmbDiagram" Grid.Column="3"
+                          ToolTip="Вид диаграммы"
+                          SelectionChanged="UpdateChart" />
+            </Grid>
+        </Border>
+
+        <Border Grid.Row="1" Style="{DynamicResource Card}">
+            <wfi:WindowsFormsHost>
+                <chart:Chart x:Name="ChartSubscriptions" />
+            </wfi:WindowsFormsHost>
+        </Border>
+
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center">
+            <Button Content="Экспорт в Word"
+                    ToolTip="Сформировать отчёт в формате .docx и .pdf"
+                    Click="BtnExportWord_Click" />
+            <Button Content="Экспорт в Excel"
+                    ToolTip="Сформировать отчёт в формате .xlsx"
+                    Click="BtnExportExcel_Click" />
+            <Button Content="Назад"
+                    Style="{DynamicResource SecondaryButton}"
+                    ToolTip="Вернуться в панель администратора"
+                    Click="BtnBack_Click" />
+        </StackPanel>
+    </Grid>
+</Page>

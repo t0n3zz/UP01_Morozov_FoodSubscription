@@ -1,0 +1,15 @@
+# Visual Studio
+.vs/
+bin/
+obj/
+*.user
+*.suo
+*.cache
+
+# NuGet
+packages/
+*.nupkg
+
+# Результаты сборки и отчёты
+[Dd]ebug/
+[Rr]elease/
